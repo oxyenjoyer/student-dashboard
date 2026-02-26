@@ -7,19 +7,19 @@ Vibe: Beginner with creativity (glassmorphism, neon accents, clean typography)
 */
 
 :root {
-    --bg-dark: #0f172a;
-    --bg-card: #1e293b;
-    --bg-card-hover: #334155;
+    --bg-dark: #000000;
+    --bg-card: #0a0a0a;
+    --bg-card-hover: #141414;
 
     --text-main: #f8fafc;
     --text-muted: #94a3b8;
 
-    --accent-purple: #8b5cf6;
-    --accent-blue: #3b82f6;
+    --accent-purple: #005cff;
+    --accent-blue: #00a8ff;
     --accent-pink: #ec4899;
     --accent-green: #10b981;
 
-    --glass-bg: rgba(30, 41, 59, 0.7);
+    --glass-bg: rgba(10, 10, 10, 0.7);
     --glass-border: rgba(255, 255, 255, 0.1);
 }
 
@@ -93,7 +93,7 @@ button {
     justify-content: space-between;
     align-items: center;
     padding: 1.5rem 5%;
-    background: rgba(15, 23, 42, 0.8);
+    background: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--glass-border);
     position: sticky;
@@ -197,7 +197,7 @@ button {
     align-items: center;
     gap: 1rem;
     z-index: 2;
-    background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));
+    background: linear-gradient(135deg, rgba(20, 20, 20, 0.9), rgba(0, 0, 0, 0.9));
     border-top: 1px solid rgba(255, 255, 255, 0.2);
     border-left: 1px solid rgba(255, 255, 255, 0.2);
 }
@@ -241,7 +241,7 @@ button {
 /* Statistics Section */
 .statistics {
     padding: 4rem 5%;
-    background: linear-gradient(180deg, var(--bg-dark) 0%, #172033 100%);
+    background: linear-gradient(180deg, var(--bg-dark) 0%, #0a0a0a 100%);
 }
 
 .section-header {
@@ -360,7 +360,7 @@ button {
 
 /* Footer */
 footer {
-    background: #0b1120;
+    background: #000000;
     padding: 3rem 5% 1.5rem;
     border-top: 1px solid var(--glass-border);
 }

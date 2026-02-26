@@ -108,7 +108,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 1rem;
-            background: rgba(15, 23, 42, 0.5);
+            background: rgba(10, 10, 10, 0.5);
             border-radius: 8px;
             margin-bottom: 0.8rem;
             border-left: 3px solid var(--accent-purple);
@@ -226,8 +226,8 @@
 
         // Gradient for the bar chart
         const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-        gradient.addColorStop(0, 'rgba(59, 130, 246, 0.8)'); // Blue accent
-        gradient.addColorStop(1, 'rgba(139, 92, 246, 0.8)'); // Purple accent
+        gradient.addColorStop(0, 'rgba(0, 168, 255, 0.8)'); // Cyan accent
+        gradient.addColorStop(1, 'rgba(0, 92, 255, 0.8)'); // Cobalt accent
 
         const gpaChart = new Chart(ctx, {
             type: 'bar', // Using Bar chart as requested for a mix of Bar/Line
@@ -289,7 +289,7 @@
                         }
                     },
                     tooltip: {
-                        backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                        backgroundColor: 'rgba(10, 10, 10, 0.9)',
                         titleFont: { family: "'Poppins', sans-serif" },
                         bodyFont: { family: "'Poppins', sans-serif" },
                         padding: 12,
