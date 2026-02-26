@@ -5,8 +5,6 @@
 **Developed By:** OxygenEnjoyer & Ramakrishna PH  
 **Course:** Web Development Course ( BCSE203E )
 
----
-
 ## Overview  
 
 **VITrack** is a comprehensive Student Outcome and Alumni Tracking Dashboard designed to help educational institutions efficiently monitor student progress and maintain meaningful connections with their alumni.
