@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VITrack - Alumni Directory</title>
+    <!-- Google Fonts for typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>VITrack</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="alumni.html" class="active">Alumni</a></li>
+            <li><a href="#">Placements</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button class="btn-primary">Login</button>
+        </div>
+    </nav>
+
+    <!-- Page Header (Beginner Style inline CSS) -->
+    <div style="text-align: center; padding: 4rem 2rem; background: #1e293b; border-bottom: 2px solid #8b5cf6;">
+        <h1 style="font-size: 2.5rem; color: #f8fafc;"><i class="fa-solid fa-user-graduate"></i> Alumni Directory</h1>
+        <p style="color: #94a3b8; margin-top: 1rem;">Connect with our previous students working at top companies.</p>
+    </div>
+
+    <!-- Alumni List (Barebones Grid) -->
+    <div
+        style="padding: 4rem 5%; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+
+        <!-- Alumni Card 1 -->
+        <div
+            style="background: #1e293b; padding: 2rem; border-radius: 10px; border: 1px solid #334155; text-align: center;">
+            <div
+                style="width: 80px; height: 80px; background: #3b82f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                <i class="fa-solid fa-user" style="font-size: 2rem; color: white;"></i>
+            </div>
+            <h3 style="color: #f8fafc;">Rahul Sharma</h3>
+            <p style="color: #10b981; font-weight: bold; font-size: 0.9rem;">Software Engineer @ Google</p>
+            <p style="color: #94a3b8; font-size: 0.85rem; margin-top: 0.5rem;">Batch: 2023</p>
+            <button class="btn-secondary" style="margin-top: 1rem; width: 100%;">Connect</button>
+        </div>
+
+        <!-- Alumni Card 2 -->
+        <div
+            style="background: #1e293b; padding: 2rem; border-radius: 10px; border: 1px solid #334155; text-align: center;">
+            <div
+                style="width: 80px; height: 80px; background: #8b5cf6; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                <i class="fa-solid fa-user" style="font-size: 2rem; color: white;"></i>
+            </div>
+            <h3 style="color: #f8fafc;">Priya Patel</h3>
+            <p style="color: #10b981; font-weight: bold; font-size: 0.9rem;">Data Scientist @ Amazon</p>
+            <p style="color: #94a3b8; font-size: 0.85rem; margin-top: 0.5rem;">Batch: 2022</p>
+            <button class="btn-secondary" style="margin-top: 1rem; width: 100%;">Connect</button>
+        </div>
+
+        <!-- Alumni Card 3 -->
+        <div
+            style="background: #1e293b; padding: 2rem; border-radius: 10px; border: 1px solid #334155; text-align: center;">
+            <div
+                style="width: 80px; height: 80px; background: #ec4899; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                <i class="fa-solid fa-user" style="font-size: 2rem; color: white;"></i>
+            </div>
+            <h3 style="color: #f8fafc;">Amit Kumar</h3>
+            <p style="color: #10b981; font-weight: bold; font-size: 0.9rem;">Product Manager @ Microsoft</p>
+            <p style="color: #94a3b8; font-size: 0.85rem; margin-top: 0.5rem;">Batch: 2021</p>
+            <button class="btn-secondary" style="margin-top: 1rem; width: 100%;">Connect</button>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h2><i class="fa-solid fa-graduation-cap"></i> VITrack</h2>
+                <p>Tracking outcomes, building futures.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact Support</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 VITrack Dashboard. Built with creativity.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

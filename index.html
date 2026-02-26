@@ -1,11 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VITrack</title>
+    <title>VITrack - Student & Alumni Dashboard</title>
+    <!-- Google Fonts for typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
- <p>  nothing.</p> 
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>VITrack</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="alumni.html">Alumni</a></li>
+            <li><a href="#">Placements</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button class="btn-primary">Login</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Empowering Futures with <span>VITrack</span></h1>
+            <p>Your centralized dashboard for student outcome tracking, placement analytics, and building a strong
+                alumni network.</p>
+            <div class="hero-buttons">
+                <button class="btn-primary"><i class="fa-solid fa-chart-line"></i> View Dashboard</button>
+                <button class="btn-secondary" onclick="window.location.href='alumni.html'">Explore Alumni</button>
+            </div>
+        </div>
+        <div class="hero-image-placeholder">
+            <!-- A creative abstract shape or icon representing data -->
+            <div class="glass-card main-glass">
+                <i class="fa-solid fa-network-wired text-gradient"></i>
+                <h3>Connecting Data</h3>
+            </div>
+            <div class="glass-card sub-glass float-1">
+                <i class="fa-solid fa-user-graduate"></i>
+                <p>98% Placed</p>
+            </div>
+            <div class="glass-card sub-glass float-2">
+                <i class="fa-solid fa-briefcase"></i>
+                <p>Top MNCs</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Statistics Section -->
+    <section class="statistics">
+        <div class="section-header">
+            <h2>Current Outcomes</h2>
+            <p>A quick glance at this year's progress</p>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon purple"><i class="fa-solid fa-users"></i></div>
+                <div class="stat-info">
+                    <h3>2,450</h3>
+                    <p>Total Students</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon blue"><i class="fa-solid fa-handshake"></i></div>
+                <div class="stat-info">
+                    <h3>1,890</h3>
+                    <p>Students Placed</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon pink"><i class="fa-solid fa-money-bill-wave"></i></div>
+                <div class="stat-info">
+                    <h3>8.5 LPA</h3>
+                    <p>Average Package</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon green"><i class="fa-solid fa-globe"></i></div>
+                <div class="stat-info">
+                    <h3>5,000+</h3>
+                    <p>Alumni Network</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features / Modules -->
+    <section class="features">
+        <div class="feature-card">
+            <i class="fa-solid fa-chart-pie"></i>
+            <h3>Placement Analytics</h3>
+            <p>Track recruitment drives, company visits, and student interview performance in real-time.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fa-solid fa-address-book"></i>
+            <h3>Alumni Directory</h3>
+            <p>Connect with passed-out students. Find mentors, referral opportunities, and industry advices.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fa-solid fa-laptop-code"></i>
+            <h3>Skill Tracking</h3>
+            <p>Monitor student progress through workshops, hackathons, and certifications achieved.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h2><i class="fa-solid fa-graduation-cap"></i> VITrack</h2>
+                <p>Tracking outcomes, building futures.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact Support</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 VITrack Dashboard. Built with creativity.</p>
+        </div>
+    </footer>
 </body>
+
 </html>
