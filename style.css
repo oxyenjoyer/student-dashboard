@@ -88,8 +88,7 @@ button {
     justify-content: space-between;
     align-items: center;
     padding: 1.5rem 5%;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(10px);
+    background: var(--bg-dark);
     border-bottom: 1px solid rgba(0, 92, 255, 0.3);
     /* Cobalt border */
     box-shadow: 0 4px 30px rgba(0, 92, 255, 0.15);
@@ -139,7 +138,6 @@ button {
     justify-content: space-between;
     padding: 6rem 5% 4rem;
     flex: 1;
-    /* Pushes the footer down */
     gap: 2rem;
 }
 
@@ -370,7 +368,6 @@ footer {
     padding: 1.5rem 5%;
     border-top: 1px solid var(--glass-border);
     margin-top: auto;
-    /* Pushes footer to the bottom */
 }
 
 .footer-content {
