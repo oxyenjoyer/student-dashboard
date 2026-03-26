@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VITrack - Student Mails</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="data.js"></script>
+
+    <style>
+        /* Mail Layout */
+        .mail-layout {
+            display: flex;
+            height: calc(100vh - 160px);
+            margin: 2rem 5%;
+            gap: 1.5rem;
+        }
+
+        .mail-sidebar {
+            width: 250px;
+            background: var(--bg-card);
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .mail-main {
+            flex: 1;
+            background: var(--bg-card);
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Sidebar Items */
+        .folder-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 0.8rem 1rem;
+            text-align: left;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .folder-btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+        }
+
+        .folder-btn.active {
+            background: rgba(0, 168, 255, 0.15);
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        .folder-btn i {
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Mail List */
+        .mail-list-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mail-list-header h2 {
+            font-size: 1.3rem;
+            color: var(--text-main);
+        }
+
+        .mail-list-container {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .mail-list-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .mail-list-container::-webkit-scrollbar-thumb {
+            background: var(--glass-border);
+            border-radius: 4px;
+        }
+
+        .mail-item {
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .mail-item:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .mail-item.unread {
+            background: rgba(255, 255, 255, 0.05);
+            font-weight: 600;
+        }
+
+        .mail-item-top {
+            display: grid;
+            grid-template-columns: 200px 1fr 100px;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .mail-sender {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-main);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .mail-sender i.fa-star {
+            color: #fbbf24;
+            font-size: 0.9rem;
+        }
+
+        .mail-subject-body {
+            display: flex;
+            gap: 10px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .mail-subject {
+            color: var(--text-main);
+        }
+
+        .mail-body-preview {
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .mail-date {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-align: right;
+        }
+
+        .attachment-container {
+            display: flex;
+            gap: 10px;
+            margin-left: 210px;
+        }
+
+        .attachment-pill {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            width: fit-content;
+        }
+
+        .attachment-pill i {
+            color: #ef4444;
+        }
+
+        .badge {
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .badge-important {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.4);
+        }
+
+        .badge-academic {
+            background: rgba(56, 189, 248, 0.2);
+            color: #38bdf8;
+            border: 1px solid rgba(56, 189, 248, 0.4);
+        }
+
+        .badge-events {
+            background: rgba(168, 85, 247, 0.2);
+            color: #a855f7;
+            border: 1px solid rgba(168, 85, 247, 0.4);
+        }
+
+        .badge-spam {
+            background: rgba(100, 116, 139, 0.2);
+            color: #94a3b8;
+            border: 1px solid rgba(100, 116, 139, 0.4);
+        }
+
+        .mail-item.str-spam .mail-subject-body {
+            text-decoration: line-through;
+            color: #64748b;
+        }
+
+        /* Mail Detail View */
+        .mail-detail {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .mail-detail-header {
+            padding: 2rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .mail-detail-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .mail-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mail-sender-info h4 {
+            margin: 0;
+            color: var(--text-main);
+        }
+
+        .mail-sender-info p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .mail-detail-body {
+            padding: 2rem;
+            flex: 1;
+            overflow-y: auto;
+            color: var(--text-main);
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .back-to-inbox {
+            background: transparent;
+            border: none;
+            color: var(--accent-blue);
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 1rem;
+            transition: color 0.3s;
+        }
+
+        .back-to-inbox:hover {
+            color: var(--accent-purple);
+        }
+
+        /* Login Modal Overrides */
+        .login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-main);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .mail-login-card {
+            background: var(--bg-card);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .mail-login-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--accent-blue);
+        }
+
+        .mail-login-card p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .mail-input-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .mail-input-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .mail-input-group input {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            color: var(--text-main);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .mail-input-group input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 10px rgba(0, 168, 255, 0.3);
+        }
+
+        .mail-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .mail-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 168, 255, 0.4);
+        }
+
+        .mail-btn-sec {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--accent-pink);
+            background: transparent;
+            color: var(--accent-pink);
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .mail-btn-sec:hover {
+            background: rgba(236, 72, 153, 0.1);
+        }
+
+        .error-msg {
+            color: var(--accent-pink);
+            font-size: 0.85rem;
+            margin-top: 10px;
+            min-height: 20px;
+        }
+
+        .spam-warning {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Mail Login Modal -->
+    <div id="mailLoginModal" class="login-overlay">
+        <div class="mail-login-card animate-slide-up">
+            <h2><i class="fa-solid fa-envelope-open-text"></i> Student Webmail</h2>
+            <p>Access your personalized university inbox.</p>
+
+            <div class="mail-input-group">
+                <i class="fa-solid fa-at"></i>
+                <input type="email" id="mailEmail" placeholder="Example: name2024@vitstudent.ac.in" />
+            </div>
+            <div class="mail-input-group">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="mailPass" placeholder="Password" />
+            </div>
+
+            <p id="mailError" class="error-msg"></p>
+
+            <button class="mail-btn" onclick="handleMailLogin()">Access Mails</button>
+            <button class="mail-btn-sec" onclick="window.location.href='dashboard.html'">Return to Dashboard</button>
+
+            <p style="margin-top: 15px; font-size: 0.75rem; color: #64748b;">(Demo: try
+                chhatrapati.kingshuk2024@vitstudent.ac.in / mailpassword)</p>
+        </div>
+    </div>
+
+    <!-- Interface -->
+    <div id="mailInterface" style="opacity: 0; pointer-events: none; transition: opacity 0.5s; display: none;">
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>VITrack</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="alumni.html">Alumni</a></li>
+                <li><a href="mails.html" class="active">Mails</a></li>
+            </ul>
+            <div class="nav-actions">
+                <span id="navUserEmail" style="color: var(--text-muted); font-size: 0.9rem; margin-right: 15px;"></span>
+                <button onclick="logoutMails()"
+                    style="background: transparent; border: 1px solid var(--accent-pink); color: var(--accent-pink); padding: 5px 15px; border-radius: 20px; cursor: pointer;">Logout</button>
+            </div>
+        </nav>
+
+        <div class="mail-layout animate-slide-up">
+            <!-- Sidebar -->
+            <div class="mail-sidebar">
+                <button class="folder-btn active" onclick="loadEmails('All', this)"><i class="fa-solid fa-inbox"></i>
+                    Inbox</button>
+                <button class="folder-btn" onclick="loadEmails('Important', this)"><i class="fa-solid fa-star"
+                        style="color: #ef4444;"></i> Important</button>
+                <button class="folder-btn" onclick="loadEmails('Academic', this)"><i class="fa-solid fa-chalkboard-user"
+                        style="color: #38bdf8;"></i> Academic</button>
+                <button class="folder-btn" onclick="loadEmails('Events', this)"><i class="fa-solid fa-calendar-check"
+                        style="color: #a855f7;"></i> Events</button>
+                <button class="folder-btn" onclick="loadEmails('Normal', this)"><i class="fa-solid fa-envelope"></i>
+                    General</button>
+                <button class="folder-btn" onclick="loadEmails('Spam', this)"><i
+                        class="fa-solid fa-triangle-exclamation" style="color: #94a3b8;"></i> Spam</button>
+            </div>
+
+            <!-- Main Content -->
+            <div class="mail-main">
+                <!-- Mail List View -->
+                <div id="mailListView" style="display: flex; flex-direction: column; height: 100%;">
+                    <div class="mail-list-header">
+                        <h2 id="currentFolderName">Inbox</h2>
+                        <span id="mailCount" style="color: var(--text-muted); font-size: 0.9rem;">0 messages</span>
+                    </div>
+                    <div class="mail-list-container" id="mailListItems">
+                        <!-- Mails injected here -->
+                    </div>
+                </div>
+
+                <!-- Mail Detail View -->
+                <div id="mailDetailView" class="mail-detail">
+                    <div class="mail-detail-header">
+                        <button class="back-to-inbox" onclick="closeMail()"><i class="fa-solid fa-arrow-left"></i>
+                            Back</button>
+                        <h2 class="mail-detail-title" id="mdSubject">Subject</h2>
+                        <div class="mail-meta">
+                            <div class="mail-sender-info">
+                                <h4 id="mdSender">Sender Name</h4>
+                                <p id="mdEmail">sender@vit.ac.in</p>
+                            </div>
+                            <div class="mail-date" id="mdDate">Date</div>
+                        </div>
+                    </div>
+                    <div class="mail-detail-body" id="mdBody">
+                        Body content
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentAccount = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const loggedInEmail = sessionStorage.getItem('vitrack_mail_user');
+            if (loggedInEmail) {
+                // Find user in data.js mockEmailAccounts
+                const acc = mockEmailAccounts.find(a => a.email.toLowerCase() === loggedInEmail.toLowerCase());
+                if (acc) {
+                    showMailInterface(acc);
+                } else {
+                    sessionStorage.removeItem('vitrack_mail_user');
+                }
+            }
+        });
+
+        function handleMailLogin() {
+            const email = document.getElementById('mailEmail').value.trim();
+            const pass = document.getElementById('mailPass').value;
+            const errorElement = document.getElementById('mailError');
+
+            if (!email || !pass) {
+                errorElement.textContent = "Please enter both email and password.";
+                return;
+            }
+
+            // Verify with data.js mockEmailAccounts
+            const account = verifyMailLogin(email, pass);
+
+            if (!account) {
+                errorElement.textContent = "Invalid credentials. Please check your email or password.";
+                return;
+            }
+
+            // Simulate successful login
+            sessionStorage.setItem('vitrack_mail_user', account.email);
+            showMailInterface(account);
+        }
+
+        function showMailInterface(account) {
+            currentAccount = account;
+            document.getElementById('mailLoginModal').style.display = 'none';
+            const interfaceEl = document.getElementById('mailInterface');
+            interfaceEl.style.display = 'block';
+            setTimeout(() => {
+                interfaceEl.style.opacity = '1';
+                interfaceEl.style.pointerEvents = 'all';
+            }, 50);
+
+            document.getElementById('navUserEmail').textContent = account.email;
+
+            // Load inbox by default
+            loadEmails('All', document.querySelector('.folder-btn.active'));
+        }
+
+        function logoutMails() {
+            sessionStorage.removeItem('vitrack_mail_user');
+            window.location.reload();
+        }
+
+        function getBadgeHtml(category) {
+            if (category === 'Important') return '<span class="badge badge-important">Important</span>';
+            if (category === 'Academic') return '<span class="badge badge-academic">Academic</span>';
+            if (category === 'Events') return '<span class="badge badge-events">Events</span>';
+            if (category === 'Spam') return '<span class="badge badge-spam">Spam</span>';
+            return '';
+        }
+
+        function loadEmails(filter, btnElement) {
+            if (!currentAccount) return;
+
+            // Update active state
+            document.querySelectorAll('.folder-btn').forEach(btn => btn.classList.remove('active'));
+            if (btnElement) btnElement.classList.add('active');
+
+            // Set views
+            document.getElementById('mailListView').style.display = 'flex';
+            document.getElementById('mailDetailView').style.display = 'none';
+
+            let folderName = filter === 'All' ? 'Inbox' : filter;
+            document.getElementById('currentFolderName').textContent = folderName;
+
+            const container = document.getElementById('mailListItems');
+            container.innerHTML = '';
+
+            let filteredMails = filter === 'All'
+                ? currentAccount.inbox.filter(m => m.category !== 'Spam') // Hide spam from general inbox
+                : currentAccount.inbox.filter(m => m.category === filter);
+
+            document.getElementById('mailCount').textContent = `${filteredMails.length} messages`;
+
+            if (filteredMails.length === 0) {
+                container.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--text-muted);">No emails found in this folder.</div>';
+                return;
+            }
+
+            filteredMails.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)).forEach(mail => {
+                const dateObj = new Date(mail.timestamp);
+                const month = dateObj.toLocaleString('default', { month: 'short' });
+                const formatedDate = `${month} ${dateObj.getDate()}`;
+
+                const isSpam = mail.category === 'Spam' ? 'str-spam' : '';
+                const unreadClass = !mail.read ? 'unread' : '';
+
+                const item = document.createElement('div');
+                item.className = `mail-item ${unreadClass} ${isSpam}`;
+                item.onclick = () => openMail(mail.id);
+
+                let attachmentHtml = '';
+                if (mail.attachments && mail.attachments.length > 0) {
+                    attachmentHtml = '<div class="attachment-container">';
+                    mail.attachments.forEach(att => {
+                        attachmentHtml += `<div class="attachment-pill"><i class="fa-solid fa-file-pdf"></i> ${att.name}</div>`;
+                    });
+                    attachmentHtml += '</div>';
+                }
+
+                const starIcon = mail.category === 'Important' ? '<i class="fa-solid fa-star"></i>' : '<i class="fa-regular fa-star" style="color: #64748b;"></i>';
+
+                item.innerHTML = `
+                    <div class="mail-item-top">
+                        <div class="mail-sender">
+                            <i class="fa-regular fa-square" style="color: #64748b;"></i>
+                            ${starIcon}
+                            <i class="fa-solid fa-chevron-right" style="color:#fbbf24; font-size:0.7rem;"></i>
+                            <span>${mail.sender}</span>
+                        </div>
+                        <div class="mail-subject-body">
+                            <span class="mail-subject">${mail.subject}</span>
+                            <span class="mail-body-preview">- ${mail.body}</span>
+                        </div>
+                        <div class="mail-date">${formatedDate}</div>
+                    </div>
+                    ${attachmentHtml}
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function openMail(id) {
+            if (!currentAccount) return;
+            const mail = currentAccount.inbox.find(m => m.id === id);
+            if (!mail) return;
+
+            mail.read = true;
+
+            document.getElementById('mailListView').style.display = 'none';
+            document.getElementById('mailDetailView').style.display = 'flex';
+
+            document.getElementById('mdSubject').textContent = mail.subject;
+            document.getElementById('mdSender').textContent = mail.sender;
+            document.getElementById('mdEmail').textContent = `<${mail.senderEmail}>`;
+
+            const dateStr = new Date(mail.timestamp).toLocaleString();
+            document.getElementById('mdDate').innerHTML = `${getBadgeHtml(mail.category)} &nbsp; ${dateStr}`;
+
+            let bodyContent = mail.body;
+
+            if (mail.category === 'Spam') {
+                bodyContent = `
+                    <div class="spam-warning">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <div>
+                            <strong>Warning:</strong> This message appears to be spam or a phishing attempt. 
+                            Do not click on suspicious links or provide sensitive information.
+                        </div>
+                    </div>
+                    <div style="color: #94a3b8;">${bodyContent}</div>
+                `;
+            }
+
+            if (mail.attachments && mail.attachments.length > 0) {
+                let attachHtml = '<div style="margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1rem;"><h4>Attachments</h4><div style="display: flex; gap: 10px; margin-top: 10px;">';
+                mail.attachments.forEach(att => {
+                    attachHtml += `
+                    <div style="padding: 10px 15px; border: 1px solid var(--glass-border); border-radius: 8px; display:inline-flex; align-items:center; gap:10px; cursor:pointer;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'">
+                        <i class="fa-solid fa-file-pdf" style="color: #ef4444; font-size: 1.5rem;"></i>
+                        <div>
+                            <div style="font-size: 0.9rem;">${att.name}</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted);">PDF Document</div>
+                        </div>
+                    </div>`;
+                });
+                attachHtml += '</div></div>';
+                bodyContent += attachHtml;
+            }
+
+            document.getElementById('mdBody').innerHTML = bodyContent;
+        }
+
+        function closeMail() {
+            document.getElementById('mailListView').style.display = 'flex';
+            document.getElementById('mailDetailView').style.display = 'none';
+
+            const activeFolder = document.querySelector('.folder-btn.active').textContent.trim().split(' ').pop();
+            const mapFilter = { "Inbox": "All", "Important": "Important", "Academic": "Academic", "Events": "Events", "General": "Normal", "Spam": "Spam" };
+            loadEmails(mapFilter[activeFolder] || 'All');
+        }
+    </script>
+</body>
+
+</html>
